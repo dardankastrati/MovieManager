@@ -4,16 +4,24 @@
                       http://ocpsoft.org/xml/ns/prettyfaces/rewrite-config-prettyfaces.xsd">
 
     <url-mapping>
-        <pattern value="/customers/" />
-        <view-id value="/faces/pages/customers/list.xhtml" />
+        <pattern value="" />
+        <view-id value="/faces/index.xhtml" />
     </url-mapping>
     <url-mapping>
-        <pattern value="/customers/#{/[0-9]+/ id}" />
-        <view-id value="/faces/pages/customers/edit.xhtml" />
+        <pattern value="/people/edit.xhtml" />
+        <view-id value="/faces/pages/people/edit.xhtml" />
     </url-mapping>
-        <url-mapping>
-        <pattern value="/accounts/#{/[0-9]+/ id}" />
-        <view-id value="/faces/pages/accounts/edit.xhtml" />
+    <url-mapping>
+        <pattern value="/people/edit.xhtml#{/[0-9]+/ id}" />
+        <view-id value="/faces/pages/people/edit.xhtml" />
+    </url-mapping>
+    <url-mapping>
+        <pattern value="/people/moviesList.xhtml#{/[0-9]+/ id}" />
+        <view-id value="/faces/pages/people/moviesList.xhtml" />
+    </url-mapping>
+    <url-mapping>
+        <pattern value="/movies/details.xhtml#{/[0-9]+/ id}" />
+        <view-id value="/faces/pages/movies/details.xhtml" />
     </url-mapping>
 
 </pretty-config>
