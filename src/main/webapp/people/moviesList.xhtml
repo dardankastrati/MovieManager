@@ -37,43 +37,66 @@
 
                     <br />
 
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <p>Liste des films de la personne</p>
+                    <h:panelGroup rendered="#{personBean.currentPerson.movies.size() != 0}">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <p>Liste des films de la personne</p>
+                            </div>
+                            <h:dataTable class="table table-hover" value="#{personBean.currentPerson.movies}" var="movie">
+                                <h:column>
+                                    <f:facet name="header">ID</f:facet>
+                                    <h:link outcome="/movies/details.xhtml" value="#{movie.id}">
+                                        <f:param name="id" value="#{movie.id}"/>
+                                    </h:link>
+                                </h:column>            
+                                <h:column>
+                                    <f:facet name="header">Nom du film</f:facet>
+                                    <h:link outcome="/movies/details.xhtml" value="#{movie.name}">
+                                        <f:param name="id" value="#{movie.id}"/>
+                                    </h:link>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Producteur</f:facet>
+                                        #{movie.producer}
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Supprimer</f:facet>
+                                    <h:form>
+                                        <h:commandButton class="btn btn-primary" value="Supprimer" action="#{personBean.delete(movie)}" />
+                                    </h:form>
+
+                                </h:column>
+                            </h:dataTable>
+                        </div>   
+                    </h:panelGroup>
+
+                    <h:panelGroup rendered="#{personBean.currentPerson.movies.size() == 0}">
+                        <h3>Aucun film ajouté</h3>
+                    </h:panelGroup>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h:form>
+                            <h:outputText value="Ajout d'un nouveau film à la liste" /> 
+                            <h:selectOneMenu class="form-control" id="lovMovies" value="#{personBean.movieSelect}" >
+                                <f:converter binding="#{movieLOVConverter}"/>
+                                <f:selectItem itemLabel="Sélectionner un film..." />
+                                <f:selectItems value="${personBean.movieMissing}" var="movieMissing" itemLabel="${movieMissing.name}" />
+                            </h:selectOneMenu>
+
+                            
+                                <h:commandButton class="btn btn-primary" value="Ajouter" action="#{personBean.addMovie()}" />
+                            </h:form>
+
                         </div>
-                        <h:dataTable class="table table-hover" value="#{personBean.currentPerson.movies}" var="movie">
-                            <h:column>
-                                <f:facet name="header">ID</f:facet>
-                                <h:link outcome="../movies/details.xhtml" value="#{movie.id}">
-                                    <f:param name="id" value="#{movie.id}"/>
-                                </h:link>
-                            </h:column>            
-                            <h:column>
-                                <f:facet name="header">Nom du film</f:facet>
-                                <h:link outcome="../movies/details.xhtml" value="#{movie.name}">
-                                    <f:param name="id" value="#{movie.id}"/>
-                                </h:link>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">Producteur</f:facet>
-                                    #{movie.producer}
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">Supprimer</f:facet>
-                                <h:form>
-                                    <h:commandButton class="btn btn-primary" value="Supprimer" action="#{personBean.delete(movie)}" />
-                                </h:form>
-                                
-                            </h:column>
-                        </h:dataTable>
-                        
-                        <br />
-                        
-                        <h:form>
-                        <h:commandButton class="btn btn-primary" value="Retour à la page d'accueil" action="#{personBean.nav('accueil')}" />
-                        </h:form>
-                        
                     </div>
+
+                    <br />
+
+                    <h:form>
+                        <h:commandButton class="btn btn-primary" value="Retour à la page d'accueil" action="#{personBean.nav('accueil')}" />
+                    </h:form>
+
                 </div>
             </ui:define>
 
