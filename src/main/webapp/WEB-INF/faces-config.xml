@@ -12,4 +12,45 @@
             <default-locale>fr</default-locale>
         </locale-config>
     </application> 
+    
+    <navigation-rule>
+        <from-view-id>index.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>addPerson</from-outcome>
+            <to-view-id>people/edit.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>index.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>addMovie</from-outcome>
+            <to-view-id>movies/edit.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>people/edit.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>accueil</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>people/moviesList.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>delMoviePerson</from-outcome>
+            <to-view-id>people/moviesList.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>people/moviesList.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>accueil</from-outcome>
+            <to-view-id>index.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
 </faces-config>

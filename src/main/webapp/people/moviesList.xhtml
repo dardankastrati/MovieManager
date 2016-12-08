@@ -1,12 +1,119 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
+    <f:metadata>
+        <f:viewParam name="id" value="#{personBean.currentPersonID}"/>
+        <f:viewAction action="#{personBean.initPerson}"></f:viewAction>
+    </f:metadata>
     <h:body>
-        Hello from Facelets
+        <ui:composition template="../main.xhtml">
+
+            <!-- Complet here if we need to custom top menu
+            <i:define name="top"></ui:define> 
+            -->
+
+            <ui:define name="content">
+                <div class="container">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <p>Détail de la personne</p>
+                        </div>
+                        <table>
+                            <tr>
+                                <td>ID : </td>
+                                <td>#{personBean.currentPerson.id}</td>
+                            </tr>
+                            <tr>
+                                <td>Prénom : </td>
+                                <td>#{personBean.currentPerson.firstName}</td>
+                            </tr>
+                            <tr>
+                                <td>Nom : </td>
+                                <td>#{personBean.currentPerson.lastName}</td>
+                            </tr>
+                        </table>
+
+                        <br />
+
+                        <h:form>
+                            <h:commandButton class="btn btn-primary" value="Editer" action="#{personBean.nav('editPerson')}" />
+                        </h:form>
+                    </div>
+
+                    <br />
+
+                    <h:panelGroup rendered="#{personBean.currentPerson.movies.size() != 0}">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <p>Liste des films de la personne</p>
+                            </div>
+                            <h:dataTable class="table table-hover" value="#{personBean.currentPerson.movies}" var="movie">
+                                <h:column>
+                                    <f:facet name="header">ID</f:facet>
+                                    <h:link outcome="/movies/details.xhtml" value="#{movie.id}">
+                                        <f:param name="id" value="#{movie.id}"/>
+                                    </h:link>
+                                </h:column>            
+                                <h:column>
+                                    <f:facet name="header">Nom du film</f:facet>
+                                    <h:link outcome="/movies/details.xhtml" value="#{movie.name}">
+                                        <f:param name="id" value="#{movie.id}"/>
+                                    </h:link>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Producteur</f:facet>
+                                        #{movie.producer}
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Supprimer</f:facet>
+                                    <h:form>
+                                        <h:commandButton class="btn btn-danger" value="Supprimer" action="#{personBean.delete(movie)}" />
+                                    </h:form>
+
+                                </h:column>
+                            </h:dataTable>
+                        </div>   
+                    </h:panelGroup>
+
+                    <h:panelGroup rendered="#{personBean.currentPerson.movies.size() == 0}">
+                        <h3>Aucun film ajouté</h3>
+                    </h:panelGroup>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h:form>
+                                <h:outputText value="Ajout d'un nouveau film à la liste" /> 
+                                <h:selectOneMenu class="form-control" id="lovMovies" value="#{personBean.movieSelect}" >
+                                    <f:converter binding="#{movieLOVConverter}"/>
+                                    <f:selectItem itemLabel="Sélectionner un film..." />
+                                    <f:selectItems value="${personBean.movieMissing}" var="movieMissing" itemLabel="${movieMissing.name}" />
+                                </h:selectOneMenu>
+                                <h:commandButton class="btn btn-primary" value="Ajouter" action="#{personBean.addMovie()}" />
+                            </h:form>
+
+                        </div>
+                    </div>
+
+                    <br />
+
+                    <h:form>
+                        <h:commandButton class="btn btn-default" value="Retour à la page d'accueil" action="#{personBean.nav('accueil')}" />
+                    </h:form>
+
+                </div>
+            </ui:define>
+
+            <!-- Complet here if we need to custom bottom (footer)
+            <ui:define name="bottom"></ui:define>
+            -->
+
+        </ui:composition>
     </h:body>
 </html>
 
