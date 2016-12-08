@@ -44,7 +44,7 @@
                         <h:commandButton rendered="#{movieBean.currentMovieID != null}" class="btn btn-primary" value="Valider" action="#{movieBean.update}"/>
                         <h:commandButton rendered="#{movieBean.currentMovieID == null}" class="btn btn-primary" value="Valider" action="#{movieBean.add}"/>
                         &nbsp;
-                        <h:commandButton class="btn btn-default" value="Annuler" action="accueil" immediate="true" />
+                        <h:commandButton class="btn btn-default" value="Annuler" action="accueilFromMovieEdit"/>
 
                     </h:form>
                 </div>

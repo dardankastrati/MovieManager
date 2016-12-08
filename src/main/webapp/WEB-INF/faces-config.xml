@@ -30,14 +30,6 @@
     </navigation-rule>
     
     <navigation-rule>
-        <from-view-id>people/edit.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>accueil</from-outcome>
-            <to-view-id>/index.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-    
-    <navigation-rule>
         <from-view-id>people/moviesList.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>delMoviePerson</from-outcome>
@@ -48,7 +40,23 @@
     <navigation-rule>
         <from-view-id>people/moviesList.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>accueil</from-outcome>
+            <from-outcome>accueilFromMovieList</from-outcome>
+            <to-view-id>index.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>people/edit.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>accueilFromPeopleEdit</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>movies/edit.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>accueilFromMovieEdit</from-outcome>
             <to-view-id>index.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
