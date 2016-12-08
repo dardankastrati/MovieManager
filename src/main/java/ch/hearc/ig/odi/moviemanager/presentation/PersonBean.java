@@ -2,12 +2,12 @@ package ch.hearc.ig.odi.moviemanager.presentation;
 
 import ch.hearc.ig.odi.moviemanager.business.Movie;
 import ch.hearc.ig.odi.moviemanager.business.Person;
+import ch.hearc.ig.odi.moviemanager.exception.NullParameterException;
 import ch.hearc.ig.odi.moviemanager.service.Services;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.context.FacesContext;
-import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -28,6 +28,10 @@ public class PersonBean implements Serializable {
 
     public PersonBean() {
         this.movieSelect = new Movie();
+        
+        if(currentPerson == null){
+            currentPerson = new Person();
+        }
     }
 
     public Long getCurrentPersonID() {
@@ -83,6 +87,18 @@ public class PersonBean implements Serializable {
         service.getPersonWithId(currentPersonID).getMovies().remove(movie);
         return "moviesList.xhtml?faces-redirect=true&id=" + currentPersonID;
     }
+    
+    public String update(){
+        service.getPersonWithId(currentPersonID).setFirstName(currentPerson.getFirstName());
+        service.getPersonWithId(currentPersonID).setLastName(currentPerson.getLastName());
+        return "/index.xhtml";
+    }
+    
+    public String add() throws NullParameterException{
+        currentPerson.setMovies(new ArrayList<Movie>());
+        service.savePerson(currentPerson);
+        return "/index.xhtml?faces-redirect=true";
+    }
 
     public List<Person> getPeopleList() {
         return service.getPeopleList();
@@ -101,7 +117,19 @@ public class PersonBean implements Serializable {
         return listMovieMissing;
     }
 
+    public String reset() {
+        this.currentPerson.setFirstName("");
+        this.currentPerson.setLastName("");
+        return "edit.xhtml?faces-redirect=true&id=" + currentPersonID;
+    }
+
     public String nav(String dest) {
-        return dest;
+        if (dest.equals("editPerson")) {
+           return "edit.xhtml?faces-redirect=true&id=" + currentPersonID;
+        } else if(dest.equals("accueil")){
+            return "/index.xhtml";
+        } else {
+            return dest;
+        }
     }
 }

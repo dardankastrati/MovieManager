@@ -38,6 +38,12 @@
                                 <td>#{personBean.currentPerson.lastName}</td>
                             </tr>
                         </table>
+
+                        <br />
+
+                        <h:form>
+                            <h:commandButton class="btn btn-primary" value="Editer" action="#{personBean.nav('editPerson')}" />
+                        </h:form>
                     </div>
 
                     <br />
@@ -67,7 +73,7 @@
                                 <h:column>
                                     <f:facet name="header">Supprimer</f:facet>
                                     <h:form>
-                                        <h:commandButton class="btn btn-primary" value="Supprimer" action="#{personBean.delete(movie)}" />
+                                        <h:commandButton class="btn btn-danger" value="Supprimer" action="#{personBean.delete(movie)}" />
                                     </h:form>
 
                                 </h:column>
@@ -80,7 +86,7 @@
                     </h:panelGroup>
 
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <h:form>
                                 <h:outputText value="Ajout d'un nouveau film à la liste" /> 
                                 <h:selectOneMenu class="form-control" id="lovMovies" value="#{personBean.movieSelect}" >
@@ -88,8 +94,6 @@
                                     <f:selectItem itemLabel="Sélectionner un film..." />
                                     <f:selectItems value="${personBean.movieMissing}" var="movieMissing" itemLabel="${movieMissing.name}" />
                                 </h:selectOneMenu>
-
-
                                 <h:commandButton class="btn btn-primary" value="Ajouter" action="#{personBean.addMovie()}" />
                             </h:form>
 
@@ -99,7 +103,7 @@
                     <br />
 
                     <h:form>
-                        <h:commandButton class="btn btn-primary" value="Retour à la page d'accueil" action="#{personBean.nav('accueil')}" />
+                        <h:commandButton class="btn btn-default" value="Retour à la page d'accueil" action="#{personBean.nav('accueil')}" />
                     </h:form>
 
                 </div>

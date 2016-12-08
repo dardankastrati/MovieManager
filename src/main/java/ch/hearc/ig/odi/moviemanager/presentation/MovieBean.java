@@ -80,6 +80,8 @@ public class MovieBean implements Serializable {
     public String nav(String dest) {
         if (dest.equals("editMovie")) {
             return "edit.xhtml?faces-redirect=true&id=" + currentMovieID;
+        } else if (dest.equals("accueil")){
+            return "/index.xhtml";
         } else {
             return "movieList.xhtml";
         }
