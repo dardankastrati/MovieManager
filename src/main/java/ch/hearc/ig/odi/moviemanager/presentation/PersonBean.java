@@ -56,7 +56,7 @@ public class PersonBean implements Serializable {
     }
 
     /**
-     * Retrieves the movie object corresponding to the request's parameter id
+     * Retrieves the person object corresponding to the request's parameter id
      *
      */
     public void initPerson() {

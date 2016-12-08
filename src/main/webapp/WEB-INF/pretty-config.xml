@@ -23,5 +23,13 @@
         <pattern value="/movies/details.xhtml#{/[0-9]+/ id}" />
         <view-id value="/faces/pages/movies/details.xhtml" />
     </url-mapping>
+    <url-mapping>
+        <pattern value="/movies/edit.xhtml" />
+        <view-id value="/faces/pages/movies/edit.xhtml" />
+    </url-mapping>
+    <url-mapping>
+        <pattern value="/movies/edit.xhtml#{/[0-9]+/ id}" />
+        <view-id value="/faces/pages/movies/edit.xhtml" />
+    </url-mapping>
 
 </pretty-config>
