@@ -5,7 +5,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>#{msg['moviesList.titre']}</title>
     </h:head>
     <f:metadata>
         <f:viewParam name="id" value="#{personBean.currentPersonID}"/>
@@ -22,19 +22,19 @@
                 <div class="container">
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <p>Détail de la personne</p>
+                            <p>#{msg['moviesList.people.panel.titre']}</p>
                         </div>
                         <table>
                             <tr>
-                                <td>ID : </td>
+                                <td>#{msg['moviesList.people.column.id']}</td>
                                 <td>#{personBean.currentPerson.id}</td>
                             </tr>
                             <tr>
-                                <td>Prénom : </td>
+                                <td>#{msg['moviesList.people.column.firstName']}</td>
                                 <td>#{personBean.currentPerson.firstName}</td>
                             </tr>
                             <tr>
-                                <td>Nom : </td>
+                                <td>#{msg['moviesList.people.column.lastName']}</td>
                                 <td>#{personBean.currentPerson.lastName}</td>
                             </tr>
                         </table>
@@ -42,7 +42,7 @@
                         <br />
 
                         <h:form>
-                            <h:commandButton class="btn btn-primary" value="Editer" action="#{personBean.nav('editPerson')}" />
+                            <h:commandButton class="btn btn-primary" value="#{msg['moviesList.people.button.edit']}" action="#{personBean.nav('editPerson')}" />
                         </h:form>
                     </div>
 
@@ -51,29 +51,29 @@
                     <h:panelGroup rendered="#{personBean.currentPerson.movies.size() != 0}">
                         <div class="panel panel-default">
                             <div class="panel-body">
-                                <p>Liste des films de la personne</p>
+                                <p>#{msg['moviesList.movies.panel.titre']}</p>
                             </div>
                             <h:dataTable class="table table-hover" value="#{personBean.currentPerson.movies}" var="movie">
                                 <h:column>
-                                    <f:facet name="header">ID</f:facet>
+                                    <f:facet name="header">#{msg['moviesList.movies.column.id']}</f:facet>
                                     <h:link outcome="/movies/details.xhtml" value="#{movie.id}">
                                         <f:param name="id" value="#{movie.id}"/>
                                     </h:link>
                                 </h:column>            
                                 <h:column>
-                                    <f:facet name="header">Nom du film</f:facet>
+                                    <f:facet name="header">#{msg['moviesList.movies.column.name']}</f:facet>
                                     <h:link outcome="/movies/details.xhtml" value="#{movie.name}">
                                         <f:param name="id" value="#{movie.id}"/>
                                     </h:link>
                                 </h:column>
                                 <h:column>
-                                    <f:facet name="header">Producteur</f:facet>
+                                    <f:facet name="header">#{msg['moviesList.movies.column.producer']}</f:facet>
                                         #{movie.producer}
                                 </h:column>
                                 <h:column>
-                                    <f:facet name="header">Supprimer</f:facet>
+                                    <f:facet name="header">#{msg['moviesList.movies.column.delete']}</f:facet>
                                     <h:form>
-                                        <h:commandButton class="btn btn-danger" value="Supprimer" action="#{personBean.delete(movie)}" />
+                                        <h:commandButton class="btn btn-danger" value="#{msg['moviesList.movies.button.delete']}" action="#{personBean.delete(movie)}" />
                                     </h:form>
 
                                 </h:column>
@@ -82,19 +82,19 @@
                     </h:panelGroup>
 
                     <h:panelGroup rendered="#{personBean.currentPerson.movies.size() == 0}">
-                        <h3>Aucun film ajouté</h3>
+                        <h3>#{msg['moviesList.movies.panelGroup.emptyMovies.titre']}</h3>
                     </h:panelGroup>
 
                     <div class="row">
                         <div class="col-md-12">
                             <h:form>
-                                <h:outputText value="Ajout d'un nouveau film à la liste" /> 
+                                <h:outputText value="#{msg['moviesList.movies.form.titre']}" /> 
                                 <h:selectOneMenu class="form-control" id="lovMovies" value="#{personBean.movieSelect}" >
                                     <f:converter binding="#{movieLOVConverter}"/>
-                                    <f:selectItem itemLabel="Sélectionner un film..." />
+                                    <f:selectItem itemLabel="#{msg['moviesList.movies.form.default']}" />
                                     <f:selectItems value="${personBean.movieMissing}" var="movieMissing" itemLabel="${movieMissing.name}" />
                                 </h:selectOneMenu>
-                                <h:commandButton class="btn btn-primary" value="Ajouter" action="#{personBean.addMovie()}" />
+                                <h:commandButton class="btn btn-primary" value="#{msg['moviesList.movies.form.button.add']}" action="#{personBean.addMovie()}" />
                             </h:form>
 
                         </div>
@@ -103,7 +103,7 @@
                     <br />
 
                     <h:form>
-                        <h:commandButton class="btn btn-default" value="Retour à la page d'accueil" action="#{personBean.nav('accueilFromMovieList')}" />
+                        <h:commandButton class="btn btn-default" value="#{msg['moviesList.movies.return']}" action="#{personBean.nav('accueilFromMovieList')}" />
                     </h:form>
 
                 </div>

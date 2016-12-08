@@ -5,7 +5,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>#{msg['index.titre']}</title>
+        
     </h:head>
     <h:body>
         <ui:composition template="main.xhtml">
@@ -19,69 +20,69 @@
                 <div class="container">
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <p>Liste des personnes</p>
+                            <p>#{msg['index.people.panel.titre']}</p>
                         </div>
                         <h:dataTable class="table table-hover" value="#{personBean.peopleList}" var="person">
                             <h:column>
-                                <f:facet name="header">ID</f:facet>
+                                <f:facet name="header">#{msg['index.people.colonne.id']}</f:facet>
                                 <h:link outcome="people/moviesList.xhtml" value="#{person.id}">
                                     <f:param name="id" value="#{person.id}"/>
                                 </h:link>
                             </h:column>            
                             <h:column>
-                                <f:facet name="header">Prénom</f:facet>
+                                <f:facet name="header">#{msg['index.people.colonne.firstName']}</f:facet>
                                 <h:link outcome="people/moviesList.xhtml" value="#{person.firstName}">
                                     <f:param name="id" value="#{person.id}"/>
                                 </h:link>
                             </h:column>
                             <h:column>
-                                <f:facet name="header">Nom</f:facet>
+                                <f:facet name="header">#{msg['index.people.colonne.lastName']}</f:facet>
                                 <h:link outcome="people/moviesList.xhtml" value="#{person.lastName}">
                                     <f:param name="id" value="#{person.id}"/>
                                 </h:link>
                             </h:column>
                             <h:column>
-                                <f:facet name="header">Nombre de films</f:facet>
+                                <f:facet name="header">#{msg['index.people.colonne.nbFilm']}</f:facet>
                                     #{person.movies.size()}
                             </h:column>
                         </h:dataTable>
                         <br />
                         <h:form>
-                            <h:commandButton class="btn btn-primary" value="Ajouter" action="#{personBean.nav('addPerson')}" />
+                            <h:commandButton class="btn btn-primary" value="#{msg['index.people.button.add']}" action="#{personBean.nav('addPerson')}" />
                         </h:form>
                     </div>
-                    
+
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <p>Liste des films</p>
                         </div>
                         <h:dataTable class="table table-hover" value="#{movieBean.moviesList}" var="movie">
                             <h:column>
-                                <f:facet name="header">ID</f:facet>
+                                <f:facet name="header">#{msg['index.movies.colonne.id']}</f:facet>
                                 <h:link outcome="movies/details.xhtml" value="#{movie.id}">
                                     <f:param name="id" value="#{movie.id}"/>
                                 </h:link>
                             </h:column>            
                             <h:column>
-                                <f:facet name="header">Nom du film</f:facet>
+                                <f:facet name="header">#{msg['index.movies.colonne.name']}</f:facet>
                                 <h:link outcome="movies/details.xhtml" value="#{movie.name}">
                                     <f:param name="id" value="#{movie.id}"/>
                                 </h:link>
                             </h:column>
                             <h:column>
-                                <f:facet name="header">Producteur</f:facet>
+                                <f:facet name="header">#{msg['index.movies.colonne.producer']}</f:facet>
                                 <h:link outcome="movies/details.xhtml" value="#{movie.producer}">
                                     <f:param name="id" value="#{movie.id}"/>
                                 </h:link>
                             </h:column>
                             <h:column>
-                                <f:facet name="header">Nombre de personnes</f:facet>
+                                <f:facet name="header">#{msg['index.movies.colonne.nbFilm']}</f:facet>
                                     #{movieBean.countPeopleOfMovie(movie)}
                             </h:column>
                         </h:dataTable>
                         <br />
                         <h:form>
-                            <h:commandButton class="btn btn-primary" value="Ajouter" action="#{personBean.nav('addMovie')}" />
+                            <h:commandButton class="btn btn-primary" value="#{msg['index.movies.button.add']}" action="#{personBean.nav('addMovie')}" />
                         </h:form>
                     </div>
                 </div>
