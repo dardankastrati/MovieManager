@@ -76,9 +76,13 @@
                             </h:column>
                             <h:column>
                                 <f:facet name="header">Nombre de personnes</f:facet>
-                                    #{movie.people.size()}
+                                    #{movieBean.countPeopleOfMovie(movie)}
                             </h:column>
                         </h:dataTable>
+                        <br />
+                        <h:form>
+                            <h:commandButton class="btn btn-primary" value="Ajouter" action="#{personBean.nav('addMovie')}" />
+                        </h:form>
                     </div>
                 </div>
 

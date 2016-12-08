@@ -3,6 +3,7 @@ package ch.hearc.ig.odi.moviemanager.presentation;
 import ch.hearc.ig.odi.moviemanager.business.Movie;
 import ch.hearc.ig.odi.moviemanager.business.Person;
 import ch.hearc.ig.odi.moviemanager.exception.NullParameterException;
+import ch.hearc.ig.odi.moviemanager.exception.UniqueException;
 import ch.hearc.ig.odi.moviemanager.service.Services;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -74,9 +75,10 @@ public class PersonBean implements Serializable {
         }
     }
 
-    public String addMovie() {
+    public String addMovie() throws NullParameterException, UniqueException {
         if (movieSelect != null) {
-            currentPerson.getMovies().add(movieSelect);
+            service.getPersonWithId(currentPersonID).addMovie(movieSelect);
+            service.getMovieWithId(movieSelect.getId()).getPeople().add(currentPerson);
             return "moviesList.xhtml?faces-redirect=true&id=" + currentPersonID;
         } else {
             return "moviesList.xhtml?faces-redirect=true&id=" + currentPersonID;

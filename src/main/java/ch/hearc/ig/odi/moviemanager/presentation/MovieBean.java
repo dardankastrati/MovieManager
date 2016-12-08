@@ -2,6 +2,7 @@ package ch.hearc.ig.odi.moviemanager.presentation;
 
 import ch.hearc.ig.odi.moviemanager.business.Movie;
 import ch.hearc.ig.odi.moviemanager.business.Person;
+import ch.hearc.ig.odi.moviemanager.exception.NullParameterException;
 import ch.hearc.ig.odi.moviemanager.service.Services;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -24,8 +25,10 @@ public class MovieBean implements Serializable {
     private Long currentMovieID;
     private Movie currentMovie;
 
-    public MovieBean() {
-
+    public MovieBean() {        
+        if(currentMovie == null){
+            currentMovie = new Movie();
+        }
     }
 
     public Long getCurrentMovieID() {
@@ -48,17 +51,29 @@ public class MovieBean implements Serializable {
     public List<Movie> getMoviesList() {
         return service.getMoviesList();
     }
-    
-    public List<Person> getPersonByMovie(){
+
+    public int countPeopleOfMovie(Movie movie) {
+        int cpt = 0;
+
+        for (Person tmpPerson : service.getPeopleList()) {
+            if (tmpPerson.getMovies().indexOf(movie) >= 0) {
+                cpt++;
+            }
+        }
+
+        return cpt;
+    }
+
+    public List<Person> getPersonByMovie() {
         List<Person> listCompletPerson = service.getPeopleList();
         List<Person> listPersonForMovie = new ArrayList<>();
-        
-        for(Person currentPerson : listCompletPerson){
-            if(currentPerson.getMovies().indexOf(currentMovie) != -1){
+
+        for (Person currentPerson : listCompletPerson) {
+            if (currentPerson.getMovies().indexOf(currentMovie) != -1) {
                 listPersonForMovie.add(currentPerson);
             }
         }
-        
+
         return listPersonForMovie;
     }
 
@@ -77,11 +92,31 @@ public class MovieBean implements Serializable {
         }
     }
 
+    public String update() {
+        service.getMovieWithId(currentMovieID).setName(currentMovie.getName());
+        service.getMovieWithId(currentMovieID).setProducer(currentMovie.getProducer());
+        return "/index.xhtml";
+    }
+
+    public String add() throws NullParameterException {
+        currentMovie.setPeople(new ArrayList<Person>());
+        service.saveMovie(currentMovie);
+        return "/index.xhtml?faces-redirect=true";
+    }
+
+    public String reset() {
+        this.currentMovie.setName("");
+        this.currentMovie.setProducer("");
+        return "edit.xhtml?faces-redirect=true&id=" + currentMovieID;
+    }
+
     public String nav(String dest) {
         if (dest.equals("editMovie")) {
             return "edit.xhtml?faces-redirect=true&id=" + currentMovieID;
-        } else if (dest.equals("accueil")){
+        } else if (dest.equals("accueil")) {
             return "/index.xhtml";
+        } else if (dest.equals("addMovie")) {
+            return "movies/edit.xhtml";
         } else {
             return "movieList.xhtml";
         }
